@@ -1,0 +1,28 @@
+Problema das n rainhas: Como colocar n rainhas em um tabuleiro de xadrez n x n de modo que elas não se matem?
+
+Algoritmo rainhas(n, S, r):
+
+<Pré-Condição>: n é o número de rainhas a ser colocadas no tabuleiro n x n. S é uma lista com as linhas em que foram colocadas as r primeiras rainhas(a rainha i é colocada na coluna i). r é o número de rainhas já colocadas.
+
+<Pós-Condição>: O algoritmo retorna a lista de linhas em que cada rainha é colocada ou uma lista vazia caso não seja possível colocar as n rainhas no tabuleiro.
+
+
+Início
+
+    Se n = r:
+        retorne S
+    Senão:
+        Para i de 1 até n:
+            Se Compatível(S, r+1, i):
+                S' = S
+                S'[r+1] = i
+                S'' = rainhas(n, S', r+1)
+                Se |S''| != 0:
+                    retorne S''
+        retorne []
+
+Exercícios:
+
+    Mochila
+    n rainhas
+    Todas as soluções do n rainhas

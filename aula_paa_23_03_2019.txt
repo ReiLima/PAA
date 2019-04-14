@@ -1,0 +1,63 @@
+Sol(L[1...n], i) = Max(Sol(L[2...n], i), Sol(L[2...n], L[1]) + 1)
+
+Algoritmo MSC(L[1...n], i):
+
+<Pré-Condição>: L é uma lista de n elementos, sendo n um número inteiro maior que 0 e todos os elementos sendo não negativos. i representa o último valor inserido na subsequência criada.
+
+<Pós-Condição>: retorna o tamanho da maior subsequência crescente considerando os elementos de L.
+
+INÍCIO
+    
+    Se n = 1:
+        Se L[1] > i:
+            retorne 1
+        Senão:
+            retorne 0
+    Senão:
+        Se L[1] > i:
+            retorne max(MSC(L[2..n], i), MSC(L[2...n], L[1]) + 1)
+        Senão:
+            retorne MSC(L[2...n], i)
+        FimSe
+    FimSe
+FIM
+
+
+
+
+
+Algoritmo MSC_D(L[1...n], x, j, M[maior(L)][n]):
+
+<Pré-Condição>: L é uma lista não-vazia de n elementos não-negativos;
+                x representa o último valor inserido na subsequência criada, ou -1, caso nenhum elemento tenha sido inserido;
+                j é o índice atual que está sendo visitado
+                M é uma matriz de tamanho n x lmax
+
+<Pós-Condição>: retorna o tamanho da maior subsequência crescente contida em L.
+
+INÍCIO
+    
+    Se j = n:
+        Se L[j] > x:
+            retorne 1
+        Senão:
+            retorne 0
+    Senão:
+        Se L[j] <= x:
+            Se M[x, j+1] = -1:
+                M[x, j+1] = MSC_D(L[1...n], x, j+1, M)
+
+            retorne M[x, j+1]
+        Senão:
+            Se M[x, j+1] = -1:
+                M[x, j+1] = MSC_D(L[1...n], x, j+1, M)
+            Se M[L[j], j+1] = -1:
+                M[L[j], j+1] = MSC_D(L[1...n], L[j], j+1, M)
+
+            retorne max(M[x, j+1], 1 + M[L[j], j+1])
+        FimSe
+    FimSe
+FIM
+
+
+

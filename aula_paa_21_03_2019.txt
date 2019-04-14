@@ -1,0 +1,37 @@
+Algoritmo Mochila(V[1...n], P[1...n], C, i):
+
+Início
+    
+    Se C <= 0 ou i = 0:
+        retorne 0
+    Senão:
+        Se P[i] > C:
+            retorne Mochila(V, P, C, i-1)
+        Senão:
+            retorne Max(Mochila(V, P, C, i-1),Mochila(V, P, C-P[i], i-1) + V[i])
+
+Mochila(V, P, C, n)
+
+
+Algoritmo Mochila(V[1...n], P[1...n], C, i, M[1...n][1...c]):
+
+Início
+
+    Se C = 0 ou i = 0:
+        retorne 0
+    Senão:
+        Se P[i] > C:
+            Se M[i-1][c] = -1:
+                M[i-1][c] = Mochila(v, p, c, i-1, M)
+            retorne M[i-1][c]
+        Senão:
+            Se M[i-1][c] = -1:
+                M[i-1][c] = Mochila(v, p, c, i-1, M)
+            Se M[i-1][c-P[i]] = -1:
+                M[i-1][c-p[i]] = Mochila(v, p, c-p[i], i-1, M)
+            retorne Max(M[i-1][c],M[i-1][c-p[i]]+v[i])
+
+
+Exercício:
+
+    Maior subsequência crescente

@@ -1,0 +1,72 @@
+Um problema de otimização sempre é composto por um problema de localização e um problema de decisão.Em contra partida é correto afirmar que um problema de decisão não é mais difícil que um problema de localização, e um problema de localização não é mais difícil que um problema de otimização. Ou seja, Otimização >= Localização >= Decisão.
+
+Algoritmo SAT(F, n, k)
+
+<Pré-Condição>: F é uma fórmula na terceira forma normal conjuntiva descrita como uma lista de k triplas de inteiros. O inteiro i representa o literal verdadeiro se i <= n e o literal falso se n < i <= 2n, sendo n o número máximo de variáveis em F.
+
+<Pós-Condição>: O algoritmo retorna 1 se F é satisfatível ou 0 caso contrário.
+
+Início
+    
+    S[1...2n]
+    Para i de 1 até 2n, faça:
+        S[i] = -1
+    retorne BT(F, n, k, S, 0)
+
+Fim
+
+Algoritmo BT(F, n, k, S, r)
+
+<Pré-Condição>: F é uma fórmula na terceira forma normal conjuntiva descrita como uma lista de k triplas de inteiros. O inteiro i representa o literal verdadeiro se i <= n e o literal falso se n < i <= 2n, sendo n o número máximo de variáveis em F. S é a atribuição de valores aos literais e r é o número máximo de variáveis resolvidas.
+
+<Pós-Condição>: O algoritmo retorna 1 se F é satisfatível ou 0 caso contrário.
+
+Início
+
+    Se k = 0:
+        retorne 1
+    S' = S
+    S'[r+1] = 1
+    S'[n + r + 1] = 0
+    k' = k
+    i' = 0
+    Para i de 1 até k, faça:
+        p = false
+        Para cada elemento x em F[i], faça:
+            Se x = r+1:
+                k' = k'-1
+                p = true
+            Se x = n + r + 1:
+                F'[i'++] = F[i]\[x]
+                p = true
+                Se |F[i]| = 1:
+                    retorne 0
+            Se p = false:
+                F'[i'++] = F[i]
+            
+    S'' = S
+    S''[r+1] = 0
+    S''[n+r+1] = 1
+    k'' = k
+    i'' = 0
+    Para i de 1 até k, faça:
+        p = false
+        Para cada elemento x em F[i], faça:
+            Se x = r+1:
+                k'' = k''-1
+                p = true
+            Se lambda = n+r+1:
+                F''[++i''] = F[i]\[x]
+                p = true
+                Se |F[i]| = 1:
+                    retorne 0
+            Se p = false:
+                F''[++i''] = F[i]
+    retorne BT(F', n, k', S', r+1) || BT(F'', n, k'', S'', r+1)
+
+Fim
+
+            
+        
+
+        

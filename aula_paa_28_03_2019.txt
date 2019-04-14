@@ -1,0 +1,44 @@
+Algoritmo Mochila(i, w):
+Início
+    Se w <= 0 ou i > n:
+        retorne 0
+    Senão:
+        v1 = Mochila(i+1, w)
+        v2 = 0
+        Se peso[i] <= w:
+            v2 = valor[i] + Mochila(i+1, w-peso[i])
+        retorne max(v1, v2)
+Fim
+
+Algoritmo Mochila_bnb(i, w, v):
+Início
+    Se w <= 0 ou i > n ou lb == ub:
+        retorne lb
+    Senão:
+        lb1 = ks_greedy(i + 1, w) + v
+        ub1 = ks_frac(i + 1, w) + v
+
+        lb2 = 0
+        ub2 = 0
+
+        Se peso[i] <= w:
+            lb2 = ks_greedy(i + 1, w - peso[i]) + v + valor[i]
+            ub2 = ks_frac(i + 1, w - peso[i]) + v + valor[i]
+    
+        lb = max(lb1, lb2, lb)        
+    
+        v1 = 0
+        Se lb1 != ub1 e ub1 >= lb:
+            v1 = Mochila(i + 1, w, v)
+        
+        v2 = 0
+        Se lb2 != ub2 e ub2 >= lb e peso[i] <= w:
+            v2 = Mochila(i + 1, w - peso[i], v + valor[i])
+        retorne max(v1, v2)
+
+//Poda adicional: Se o valor dos itens restantes somados à sua solução atual for menor que o lower bound global.
+
+Fim
+
+
+Algoritmos Probabilísticos: MonteCarlo e Las Vegas
